@@ -46,7 +46,7 @@
     });
     $.fn.bootstrapSwitch.defaults.onText = '<?= $Lang->get("LISTMEMBERS__ENABLED_TXT"); ?>';
     $.fn.bootstrapSwitch.defaults.offText = '<?= $Lang->get("LISTMEMBERS__DISABLED_TXT"); ?>';
-    $("[type='checkbox']").bootstrapSwitch();
+    $("#mail_perm_check").bootstrapSwitch();
     $('input[type="checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
         if (this.id == 'mail_perm_check') {
             $("#mail_perm_check").bootstrapSwitch('disabled', true);
