@@ -1,39 +1,27 @@
 {
-   "name":"ListMembers",
-   "author":"EmpireDev",
-   "version":"1.2.9",
-   "admin_menus":{
-      "GLOBAL__ADMIN_PLUGINS":{
-         "ListMembers":{
-            "index":1,
-            "icon":"users",
-            "menu":{
-               "Gérer les informations":{
-                  "icon":"cog",
-                  "route":"/admin/list"
-               }
+    "name": "ListMembers",
+    "author": "EmpireDev",
+    "version": "1.2.10",
+    "admin_menus": {
+        "GLOBAL__ADMIN_PLUGINS": {
+            "ListMembers": {
+                "icon": "users",
+                "route": "/admin/list"
             }
-         }
-      }
-   },
-   "navbar_routes":{
-      "ListMembers":"/list"
-   },
-   "useEvents":false,
-   "permissions":{
-      "available":[
-
-      ],
-      "default":{
-         "0":[
-
-         ],
-         "2":[
-
-         ]
-      }
-   },
-   "requirements":{
-      "CMS":"^1.2.0"
-   }
+        }
+    },
+    "navbar_routes": {
+        "ListMembers": "/list"
+    },
+    "useEvents": false,
+    "permissions": {
+        "available": [],
+        "default": {
+            "0": [],
+            "2": []
+        }
+    },
+    "requirements": {
+        "CMS": "^1.11.0"
+    }
 }
