@@ -26,9 +26,17 @@ class ListmembersController extends AppController {
       //ISOLEMENT DES INFORMATIONS DE L'UTILISATEUR PORTANT L'ID USER SORTIS EN PARAMETRE + REQUETE SQL
       $conditions = array("User.id"  => array($id));
       $userFound = $this->User->find('first', array('conditions' => $conditions));
+        
+      //RÉCUPÉRATION DU NOMBRE DE VOTES DU MEMBRE
+      $voteCount = null;
+      if ($this->EyPlugin->isInstalled('eywek.vote')) { 
+        $this->loadModel("Vote.Vote");
 
+        $voteCount = count($this->Vote->find('all', ['conditions' => ['user_id' => $userFound["User"]["id"]]]));
+      }
+    
       //SORTIE DE LA VARIABLE POUR LE VIEW
-      $this->set(compact("userFound"));
+      $this->set(compact("userFound", "voteCount"));
 
       //CREATION DE LA VARIABLE TITLE POUR LE TITRE DE L'ONGLET
       $this->set('title_for_layout', $this->Lang->get('LISTMEMBERS__PROFILE').' '.$userFound['User']['pseudo']);
