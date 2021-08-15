@@ -45,10 +45,12 @@
                           <td><?= $Lang->get('LISTMEMBERS__CREATE_DATE'); ?></td>
                           <td><b><?= $Lang->date($userFound['User']['created']); ?></b></td>
                         </tr>
-                        <tr>
-                          <td><?= $Lang->get('LISTMEMBERS__VOTE'); ?></td>
-                          <td><b><?= $userFound['User']['vote']; ?> <?= $Lang->get('LISTMEMBERS__FS'); ?></b></td>
-                        </tr>
+                        <?php if ($EyPlugin->isInstalled('eywek.vote')) { ?>
+                          <tr>
+                            <td><?= $Lang->get('LISTMEMBERS__VOTE'); ?></td>
+                            <td><b><?= $voteCount ?> <?= $Lang->get('LISTMEMBERS__FS'); ?></b></td>
+                          </tr>
+                        <?php } ?>
                       </tbody>
                     </table>
                   </div>
