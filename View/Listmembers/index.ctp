@@ -42,7 +42,11 @@
                        }elseif($v['rank'] == 5){
                          echo $Lang->get('LISTMEMBERS__RANK_BANNED');
                        }else{
-                         echo $Lang->get('LISTMEMBERS__ERREUR');
+                        foreach ($available_ranks as $key => $value) {
+                          if ($v['rank'] == $key) {
+                              echo $value;
+                          }
+                        } 
                        }
                      ?>
                      </td>

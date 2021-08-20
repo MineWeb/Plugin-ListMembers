@@ -12,8 +12,15 @@ class ListmembersController extends AppController {
        $this->loadModel('ListMembers.Perm');
        $permGetMailEtat = $this->Perm->getListMembersByPerm('mail_perm', 'etat');
        $users = $this->Users->find('all', ['order' => 'id ASC']);
-       $this->set(compact("users"));
-       $this->set(compact("permGetMailEtat"));
+      
+       //RÉCUPÉRATION DES RANKS CUSTOMS
+       $this->loadModel('Rank');
+       $custom_ranks = $this->Rank->find('all');
+       foreach ($custom_ranks as $key => $value) {
+           $available_ranks[$value['Rank']['rank_id']] = $value['Rank']['name'];
+       }
+
+       $this->set(compact("users", "permGetMailEtat", "available_ranks"));
     }
 
     public function profil(){
@@ -26,9 +33,23 @@ class ListmembersController extends AppController {
       //ISOLEMENT DES INFORMATIONS DE L'UTILISATEUR PORTANT L'ID USER SORTIS EN PARAMETRE + REQUETE SQL
       $conditions = array("User.id"  => array($id));
       $userFound = $this->User->find('first', array('conditions' => $conditions));
+      
+      //RÉCUPÉRATION DU NOMBRE DE VOTES DU MEMBRE
+      if ($this->EyPlugin->isInstalled('eywek.vote')) { 
+        $this->loadModel("Vote.Vote");
 
+        $voteCount = count($this->Vote->find('all', ['conditions' => ['user_id' => $userFound["User"]["id"]]]));
+      }
+      
+      //RÉCUPÉRATION DES RANKS CUSTOMS
+      $this->loadModel('Rank');
+      $custom_ranks = $this->Rank->find('all');
+      foreach ($custom_ranks as $key => $value) {
+          $available_ranks[$value['Rank']['rank_id']] = $value['Rank']['name'];
+      }
+    
       //SORTIE DE LA VARIABLE POUR LE VIEW
-      $this->set(compact("userFound"));
+      $this->set(compact("userFound", "voteCount", "available_ranks"));
 
       //CREATION DE LA VARIABLE TITLE POUR LE TITRE DE L'ONGLET
       $this->set('title_for_layout', $this->Lang->get('LISTMEMBERS__PROFILE').' '.$userFound['User']['pseudo']);
